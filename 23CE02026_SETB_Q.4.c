@@ -1,25 +1,23 @@
-#include <stdio.h>
 
-int main(){
-    int a,i=1,s1,s2;
-    printf("Enter the number :");
-    scanf("%d",&a);
-    while(i<a){
-        s1=i;
-        s2=a-i;
-        i=i+1;
-        int j=2;
-         while(j<a){
-        
-             while (s1%j==0 && s2%j==0 )
-             {
-                 printf("%d %d",s1,s2);
-             }
-             if (s1%j!=0 && s2%j!=0)
-            {
-            j=j+1;
-            }
+#include<stdio.h>
+
+int main() {
+    int num;
+    printf("Enter the number: ");
+    scanf("%d", &num);
+
+    int num1, num2;
+    int totalCombin = (num / 2) - 1;
+
+    for(int i=4; i<=totalCombin; i++) {
+        if(i % 2 != 0) {
+            continue;
         }
-       }
-       return 0;
+        num2 = num - i;
+        num1 = i;
+        printf("%d  %d\n", num1, num2);
+    }
+
+  
+    return 0;
 }
