@@ -1,35 +1,29 @@
-#include <stdio.h>
-
-int main(){
-    int a,b,c,d,e,f;
-    printf("Enter the x-coordinate of centre of circle :");
-    scanf("%d",&a);
-    printf("Enter the y-coordinate of centre of circle :");
-    scanf("%d",&b);
-    printf("Enter the radius :");
-    scanf("%d",&c);
-    printf("Enter the x-coordinate of a point :");
-    scanf("%d",&d);
-    printf("Enter the y-coordinate of a point :");
-    scanf("%d",&e);
-
-    if ((d-a)*(d-a)+(e-b)*(e-b)==c*c)   
-    {
-        printf("Given points lie on the circle");
-    }
+#include<stdio.h>
+void reverse(int arr[],int size)  {
+    int *ptr=arr;
     
-    else if ((d-a)*(d-a)+(e-b)*(e-b)<c*c)   
+    for(int i=0;i<size/2;i++)
     {
-        printf("Given points lie inside the circle");
+        int temp=*(ptr+i);
+        *(ptr+i)=*(ptr+(size-i-1));
+        *(ptr+(size-i-1))=temp;
     }
-   
-    else if ((d-a)*(d-a)+(e-b)*(e-b)>c*c)   
-    {
-        printf("Given points lie outside the circle");
-    }
-   
-    else {
-        printf("Enter valid coordinates");
-    }
+
+    printf("{\t");
+    for(int i=0;i<size;i++)
+        printf("%d\t",arr[i]);
+    printf("}");
+    
+}
+int main() {
+    int arr[10],n;
+    printf("Enter size of array:");
+    scanf("%d",&n);
+    printf("Enter array elements:");
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    
+    reverse(arr,n);
     return 0;
+
 }

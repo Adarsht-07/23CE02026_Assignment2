@@ -1,23 +1,31 @@
-
 #include<stdio.h>
-
-int main() {
-    int num;
-    printf("Enter the number: ");
-    scanf("%d", &num);
-
-    int num1, num2;
-    int totalCombin = (num / 2) - 1;
-
-    for(int i=4; i<=totalCombin; i++) {
-        if(i % 2 != 0) {
-            continue;
+void printduplicate(int arr[],int n) {
+    int *ptr=arr,i=0,num;
+    while(i<=n)
+    {
+        int check=0;
+        int d=*(ptr+i);
+        for(int j=0;j<=n;j++)
+        {
+            if(d==*(ptr+j))
+                check++;
         }
-        num2 = num - i;
-        num1 = i;
-        printf("%d  %d\n", num1, num2);
+        if(check>1)
+            num=d;
+        i++;   
     }
-
-  
-    return 0;
+    printf("%d is repeated 2 times",num);
+    
+}
+int main() {
+    int nums[100],n;
+    
+    printf("Enter size(n) of array(nums)[n+1]:");
+    scanf("%d",&n);
+    
+    printf("Enter array (nums):");
+    for(int i=0;i<=n;i++)
+        scanf("%d",&nums[i]);
+    
+    printduplicate(nums,n);
 }
