@@ -10,18 +10,24 @@ int main()
     l=strlen(A);
     for(int j=0;j<l;j++)
     {
-        for(int i=0;i<l-2;i++)
-       {
-          if(A[i]==A[i+1]);
-          A[i]=0;
-          A[i+1]=0;
+        for(int i=0;i<l-1;i++)
+        {
+            if(A[i]==A[i+1])
+            {
+                for(int k=i;k<l-1;k++)
+                {
+                    A[k]=A[k+2];
+                }
+                l=l-2;
+                i--;
+            }
         }
     }
     int k=0;
     for(int i=0;i<l;i++){
         if((A[i]>='a'&&A[i]<='z') || (A[i]>='A'&&A[i]<='Z')){
-        A[k]=A[i];
-        k++;
+            A[k]=A[i];
+            k++;
         }
     }
     A[k]='\0';
