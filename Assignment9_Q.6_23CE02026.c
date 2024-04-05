@@ -1,98 +1,154 @@
-#include <stdio.h>
-#include <string.h>
-#include<stdlib.h>
-typedef struct students{
-    char name[100];
-    int roll;
-    float percent;
-}stu;
-
-int i=0;
-stu insert(stu arr[]){
-    char tem[100];
-    printf("Enter the name of the student:");
-    fgets(tem,sizeof(tem),stdin);
-    fgets(arr[i].name,sizeof(arr[i].name),stdin);
-    arr[i].name[strcspn(arr[i].name,"\n")]=0;
-    printf("Enter the roll no of the student:");
-    scanf("%d",&arr[i].roll);
-    printf("Enter the percentage of marks obtained by the student:");
-    scanf("%f",&arr[i].percent);
-    i++;
-    for(int k=0;k<i;k++){
-        for(int l=0;l<(i-1)-k;l++){
-
-        if(arr[l+1].roll<arr[l].roll){
-            stu temp=arr[l];
-            arr[l]=arr[l+1];
-            arr[l+1]=temp;
-        }
-        }  
+#include<stdio.h>
+#include<math.h>
+struct sturec{
+    char name[10];
+    int rollno;
+    float percentage;
+};
+void sortName(struct sturec* t,int e);
+void findOne(struct sturec* u,int w);
+void insert(struct sturec* a,int m);
+void delete(struct sturec*a,int m);
+void specs(struct sturec* a,int m);
+void main(){
+    int n;
+    int choice;
+    printf("\n Enter number of students:");
+    scanf(" %d",&n);
+    struct sturec s[n];
+    struct sturec* p;
+    p=s;
+    
+    int i,j;
+    for(i=0;i<n;i++){
+        printf("\n Details of %d student:",i+1);
+        scanf(" %s %d %f",s[i].name,&s[i].rollno,&s[i].percentage);
     }
-    return arr[100];
+    printf("\n Enter 1 TO SORT ACC TO NAME:");
+    printf("\n Enter 2 TO FIND :");
+    printf("\n Enter 3 TO INSERT:");
+    printf("\n Enter 4 TO DELETE:");
+    printf("\n Enter 5 FOR SPECS:");
+    printf("\n Enter the choice you want:");
+    scanf(" %d",&choice);
+    switch(choice){
+    case 1:
+    sortName(p,n);
+    break;
+    case 2:
+    findOne(p,n);
+    break;
+    case 3:
+    insert(p,n);
+    break;
+    case 4:
+    delete(p,n);
+    break;
+    case 5:
+    specs(p,n);
+    break;
+    default:
+    printf("\n Wrong input:");
+    break;
+    }
 }
-stu sortName(stu arr[]){
-    for(int k=0;k<i;k++){
-        for(int l=0;l<(i-1)-k;l++){
-            for(int m=0;m<strlen(arr[l].name);m++){
-                if(arr[l].name[m]>arr[l+1].name[m]){
-                    stu temp=arr[l];
-                    arr[l]=arr[l+1];
-                    arr[l+1]=temp;
+
+void sortName(struct sturec *a,int m){
+    int x,y;
+    struct sturec temp[20];
+    for(x=0;x<m;x++){
+    for(y=x;y<m;y++){
+        if((*(a+x)).name[0]>(*(a+y)).name[0]){
+            temp[x]=*(a+x);
+            (*(a+x))=(*(a+y));
+            (*(a+y))=temp[x];
+        }
+    }
+    }
+    for(x=0;x<m;x++){
+        printf("\n %s %d %f",(*(a+x)).name,(*(a+x)).rollno,(*(a+x)).percentage);
+    }
+}
+void findOne(struct sturec *a,int m){
+    int r;
+    printf("\n Enter roll number to be found:");
+    scanf(" %d",&r);
+    int x,y;
+    for(x=0;x<m;x++){
+        if((*(a+x)).rollno==r){
+            y=x;
+            break;
+        }
+    }
+    printf("\n Details are:");
+    printf("\n %s   %d  %f",(*(a+y)).name,(*(a+y)).rollno,(*(a+y)).percentage);
+}
+void insert(struct sturec* a,int m){
+    int x,y;
+    struct sturec l[m+1],temp[20];
+    printf("\n Enter Student details:");
+    scanf(" %s %d %f",l[m].name,&l[m].rollno,&l[m].percentage);
+    for(x=0;x<m;x++){
+        l[x]=(*(a+x));
+    }
+        for(x=0;x<m+1;x++){
+            for(y=x;y<m+1;y++){
+                if(l[x].rollno>l[y].rollno){
+                    temp[x]=l[x];
+                    l[x]=l[y];
+                    l[y]=temp[x];
                 }
             }
         }
-    }
-    return arr[100];
-}
-int main (){
-    stu arr[100];
-    int ch;
-    while(1){
-        
-        printf("Which function do you want to perform?\n");
-        printf("1 for inserting a record and simultaneously sorting as per roll no\n");
-        printf("2 for sorting the database as per name\n");
-        printf("3 for returning a name from the database\n");
-        printf("4 for displaying significant contents from the database\n");
-        printf("5 for deleting a particular record\n");
-        printf("0 for exiting from the databse\n");
-        printf("**********************************************************\n");
-        printf("YOUR CHOICE IS:");
-        scanf("%d",&ch);
-        switch (ch){
-        case 0:
-        exit(1);
-        break;
-        case 1:
-        insert (arr);
-        for(int j=0;j<i;j++){
-
-            printf("The name of %dth person is %s\n",(j+1),arr[j].name);
-            printf("The roll no of %dth person is %d\n",(j+1),arr[j].roll);
-            printf("The percentage of marks obtained by %dth person is %f\n",(j+1),arr[j].percent);
+        for(x=0;x<m+1;x++){
+            printf("\n %s   %d  %f",l[x].name,l[x].rollno,l[x].percentage);
         }
-        break;
-        case 2:
-        sortName(arr);
-        for(int j=0;j<i;j++){
-
-            printf("The name of %dth person is %s\n",(j+1),arr[j].name);
-            printf("The roll no of %dth person is %d\n",(j+1),arr[j].roll);
-            printf("The percentage of marks obtained by %dth person is %f\n",(j+1),arr[j].percent);
+}
+void delete(struct sturec*a,int m){
+    int r;
+    printf("\n Enter roll number to be deleted:");
+    scanf(" %d",&r);
+    int x,y;
+    for(x=0;x<m;x++){
+        if((*(a+x)).rollno==r){
+            y=x;
+            break;
         }
-        break;
     }
-
-
-
-    
+    for(x=y;x<m-1;x++){
+        (*(a+x))=(*(a+x+1));
+    }
+    for(x=0;x<m-1;x++){
+        printf("\n %s   %d  %f",(*(a+x)).name,(*(a+x)).rollno,(*(a+x)).percentage);
+    }
 }
-
+ void specs(struct sturec* a,int m){
+    int x;
+    float sum=0;
+    float sum1=0;
+    float h[5];
+    h[0]=m;
+    h[1]=(*(a)).percentage;
+    h[2]=(*(a)).percentage;
+    for(x=0;x<m;x++){
+        h[1]=(h[1]>(*(a+x)).percentage)?h[1]:(*(a+x)).percentage;
+    }
+      for(x=0;x<m;x++){
+        h[2]=(h[2]<(*(a+x)).percentage)?h[2]:(*(a+x)).percentage;
+    }
+    for(x=0;x<m;x++){
+        sum+=(*(a+x)).percentage;
+    }
+    h[3]=(sum/m);
+    for(x=0;x<m;x++){
+       
+       sum1+=(*(a+x)).percentage * (*(a+x)).percentage;
+    }
+    h[4]=sqrt((sum1/m)-(h[3]*h[3]));
     
-    
-
-return 0;
-
-    
-}
+        printf("\nTOTAL NO OF RECORDS: %.0f",h[0]);
+        printf("\nHIGHEST PERCENTAGE: %.2f",h[1]);
+        printf("\nLOWEST PERCENTAGE: %.2f",h[x]);
+        printf("\nAVERAGE PERCENTAGE: %.2f",h[x]);
+        printf("\nSTANDARD DEVIATIION %.2f",h[x]);
+    }
