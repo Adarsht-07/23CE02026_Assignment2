@@ -1,38 +1,31 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-char *removeDuplicates(char *s)
-{
-    int length = strlen(s);
-    char *stack = (char *)malloc((length + 1) * sizeof(char));
-    int top = -1;
-
-    for (int i = 0; i < length; i++)
-    {
-        if (top >= 0 && stack[top] == s[i])
-        {
-            top--;
-        }
-        else
-        {
-            stack[++top] = s[i];
-        }
-    }
-
-    stack[top + 1] = '\0';
-    return stack;
-}
+#include<stdio.h>
+#include<string.h>
 
 int main()
 {
-    char s[100];
-    printf("Enter the string: ");
-    scanf("%s", s);
+    char A[100];
+    int l;
+    printf("\n Enter the string : ");
+    scanf("%s",A);
+    l=strlen(A);
+    for(int j=0;j<l;j++)
+    {
+        for(int i=0;i<l-2;i++)
+       {
+          if(A[i]==A[i+1]);
+          A[i]=0;
+          A[i+1]=0;
+        }
+    }
+    int k=0;
+    for(int i=0;i<l;i++){
+        if((A[i]>='a'&&A[i]<='z') || (A[i]>='A'&&A[i]<='Z')){
+        A[k]=A[i];
+        k++;
+        }
+    }
+    A[k]='\0';
+    printf(" %s",A);
 
-    char *result = removeDuplicates(s);
-    printf("Final string after duplicate removals: %s\n", result);
-
-    free(result); // Freeing the dynamically allocated memory
     return 0;
 }
